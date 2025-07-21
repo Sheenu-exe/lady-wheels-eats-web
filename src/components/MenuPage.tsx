@@ -227,60 +227,67 @@ const MenuPage = () => {
         </div>
 
         {/* Menu Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredItems.map((item) => (
-            <Card key={item.id} className="food-card group overflow-hidden">
-              <div className="relative">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {filteredItems.map((item, index) => (
+            <Card key={item.id} className="food-card group overflow-hidden tilt-on-hover">
+              <div className="relative overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 
-                {/* Badges */}
-                <div className="absolute top-3 left-3 flex flex-col gap-2">
+                {/* Enhanced Badges */}
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {item.isNew && (
-                    <Badge className="bg-accent text-white">New</Badge>
+                    <Badge className="bg-bright-red text-white font-bold px-3 py-1 animate-pulse shadow-floating">
+                      ✨ NEW
+                    </Badge>
                   )}
                   {item.isPopular && (
-                    <Badge className="bg-primary text-white">Popular</Badge>
+                    <Badge className="bg-gradient-premium text-white font-bold px-3 py-1 shadow-floating">
+                      🔥 POPULAR
+                    </Badge>
                   )}
                 </div>
 
-                {/* Icons */}
-                <div className="absolute top-3 right-3 flex flex-col gap-2">
+                {/* Enhanced Icons */}
+                <div className="absolute top-4 right-4 flex flex-col gap-2">
                   {item.isVeg && (
-                    <div className="bg-green-500 p-1 rounded-full">
-                      <Leaf className="w-3 h-3 text-white" />
+                    <div className="bg-mint-green p-2 rounded-full shadow-floating">
+                      <Leaf className="w-4 h-4 text-white" />
                     </div>
                   )}
                   {item.isSpicy && (
-                    <div className="bg-red-500 p-1 rounded-full">
-                      <Flame className="w-3 h-3 text-white" />
+                    <div className="bg-bright-red p-2 rounded-full shadow-floating animate-pulse">
+                      <Flame className="w-4 h-4 text-white" />
                     </div>
                   )}
                 </div>
 
-                {/* Rating */}
-                <div className="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                  <Star className="w-3 h-3 fill-current text-yellow-400" />
-                  {item.rating}
+                {/* Enhanced Rating */}
+                <div className="absolute bottom-4 right-4 bg-black/80 text-white px-3 py-2 rounded-full text-sm flex items-center gap-2 shadow-floating">
+                  <Star className="w-4 h-4 fill-current text-yellow-400" />
+                  <span className="font-bold">{item.rating}</span>
                 </div>
+
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-gradient-premium opacity-0 group-hover:opacity-15 transition-opacity duration-300"></div>
               </div>
 
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-dark-brown mb-2 line-clamp-1">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-charcoal mb-3 text-lg group-hover:text-gradient transition-all duration-300">
                   {item.name}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                <p className="text-charcoal/70 mb-6 leading-relaxed line-clamp-2">
                   {item.description}
                 </p>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-primary">
+                  <span className="text-2xl font-bold text-gradient">
                     {item.price}
                   </span>
-                  <Button variant="cta" size="sm">
+                  <Button variant="premium" size="sm" className="group-hover:scale-110 transition-transform duration-300">
                     Add to Cart
                   </Button>
                 </div>
@@ -290,16 +297,23 @@ const MenuPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16 p-8 bg-soft-beige rounded-2xl">
-          <h3 className="text-2xl font-display font-bold text-dark-brown mb-4">
-            Can't Decide? Try Our Combo!
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            Get any wrap + fries + drink for just ₹199. Perfect for a complete meal!
-          </p>
-          <Button variant="hero" size="lg">
-            Order Combo Deal
-          </Button>
+        <div className="text-center mt-20 glass-card p-12 relative overflow-hidden">
+          <div className="relative z-10">
+            <h3 className="text-3xl md:text-4xl font-display font-bold text-charcoal mb-6">
+              Can't Decide? Try Our <span className="text-gradient">Combo!</span>
+            </h3>
+            <p className="text-xl text-charcoal/80 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Get any wrap + fries + drink for just <span className="text-2xl font-bold text-gradient">₹199</span>
+              <br />Perfect for a complete meal experience!
+            </p>
+            <Button variant="hero" size="lg" className="text-xl px-8 py-4 hover:scale-110">
+              🎯 Order Combo Deal
+            </Button>
+          </div>
+          
+          {/* Floating decorations */}
+          <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-warm rounded-full opacity-20 animate-float"></div>
+          <div className="absolute bottom-4 left-4 w-12 h-12 bg-mint-green rounded-full opacity-25 animate-float-slow"></div>
         </div>
       </div>
     </div>

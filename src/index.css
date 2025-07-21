@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Food truck warm color palette */
+    /* Premium food truck color palette */
     --background: 45 15% 97%;
     --foreground: 25 15% 12%;
 
@@ -42,20 +42,28 @@ All colors MUST be HSL.
     --input: 35 20% 85%;
     --ring: 42 88% 55%;
 
-    /* Custom food truck colors */
+    /* Enhanced color palette */
     --warm-cream: 40 25% 96%;
     --soft-beige: 35 20% 90%;
     --mustard: 42 88% 55%;
     --warm-orange: 25 85% 60%;
     --dark-brown: 25 25% 15%;
+    --charcoal: 210 11% 15%;
+    --mint-green: 156 73% 74%;
+    --bright-red: 0 84% 60%;
 
-    /* Gradients */
+    /* Premium gradients */
     --gradient-warm: linear-gradient(135deg, hsl(var(--mustard)), hsl(var(--warm-orange)));
     --gradient-cream: linear-gradient(180deg, hsl(var(--warm-cream)), hsl(var(--soft-beige)));
+    --gradient-premium: linear-gradient(135deg, hsl(var(--mustard)) 0%, hsl(var(--warm-orange)) 50%, hsl(var(--bright-red)) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     
-    /* Shadows */
+    /* Enhanced shadows with depth */
     --shadow-warm: 0 10px 30px -10px hsl(var(--mustard) / 0.3);
     --shadow-soft: 0 4px 20px hsl(var(--dark-brown) / 0.1);
+    --shadow-floating: 0 20px 40px -15px hsl(var(--charcoal) / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.4);
+    --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 
     --radius: 0.5rem;
 
@@ -136,7 +144,7 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Gradient backgrounds */
+  /* Premium gradient backgrounds */
   .bg-gradient-warm {
     background: var(--gradient-warm);
   }
@@ -145,7 +153,17 @@ All colors MUST be HSL.
     background: var(--gradient-cream);
   }
 
-  /* Custom shadows */
+  .bg-gradient-premium {
+    background: var(--gradient-premium);
+  }
+
+  .bg-gradient-glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Enhanced shadows with depth */
   .shadow-warm {
     box-shadow: var(--shadow-warm);
   }
@@ -154,46 +172,130 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-soft);
   }
 
-  /* Hero button variant */
+  .shadow-floating {
+    box-shadow: var(--shadow-floating);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-inset {
+    box-shadow: var(--shadow-inset);
+  }
+
+  /* Premium button variants */
   .btn-hero {
-    @apply bg-primary hover:bg-primary-glow text-primary-foreground font-semibold px-8 py-3 rounded-full shadow-warm transition-all duration-300 hover:scale-105;
+    @apply bg-gradient-premium text-white font-semibold px-8 py-4 rounded-full shadow-floating transition-all duration-300 hover:scale-105 hover:shadow-glow;
   }
 
-  /* WhatsApp floating button */
+  .btn-glass {
+    @apply bg-gradient-glass border border-white/20 text-white font-medium px-6 py-3 rounded-full backdrop-blur-sm transition-all duration-300 hover:bg-white/20;
+  }
+
+  /* Floating elements */
+  .floating-element {
+    @apply absolute animate-float-slow;
+  }
+
+  .floating-circle {
+    @apply w-4 h-4 bg-gradient-warm rounded-full opacity-60;
+  }
+
+  .floating-star {
+    @apply text-yellow-400 opacity-70;
+  }
+
+  /* WhatsApp floating button with pulse */
   .whatsapp-float {
-    @apply fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition-all duration-300 hover:scale-110;
+    @apply fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-floating z-50 transition-all duration-300 hover:scale-110;
   }
 
-  /* Food card styling */
+  .whatsapp-float::before {
+    content: '';
+    @apply absolute inset-0 bg-green-400 rounded-full animate-ping opacity-30;
+  }
+
+  /* Premium food card styling */
   .food-card {
-    @apply bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-warm transition-all duration-300 hover:-translate-y-1;
+    @apply bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-floating transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] group;
   }
 
-  /* Animation utilities */
+  .food-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-premium opacity-0 transition-opacity duration-300 group-hover:opacity-10 rounded-2xl;
+  }
+
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-gradient-glass backdrop-blur-md border border-white/20 rounded-2xl shadow-floating;
+  }
+
+  /* Info pill styling */
+  .info-pill {
+    @apply bg-gradient-glass backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium;
+  }
+
+  /* Animation utilities with enhanced effects */
   .fade-in {
     @apply animate-fade-in;
   }
 
   .slide-up {
-    @apply translate-y-4 opacity-0 transition-all duration-500;
+    @apply translate-y-8 opacity-0 transition-all duration-700;
   }
 
   .slide-up.animate {
     @apply translate-y-0 opacity-100;
   }
+
+  .parallax-slow {
+    transform: translateY(var(--scroll-y, 0) * 0.5px);
+  }
+
+  .tilt-on-hover {
+    @apply transition-transform duration-300;
+  }
+
+  .tilt-on-hover:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale3d(1.05, 1.05, 1.05);
+  }
 }
 
 @layer utilities {
-  /* Custom color utilities */
+  /* Enhanced color utilities */
   .text-warm-cream { color: hsl(var(--warm-cream)); }
   .text-soft-beige { color: hsl(var(--soft-beige)); }
   .text-mustard { color: hsl(var(--mustard)); }
   .text-warm-orange { color: hsl(var(--warm-orange)); }
   .text-dark-brown { color: hsl(var(--dark-brown)); }
+  .text-charcoal { color: hsl(var(--charcoal)); }
+  .text-mint-green { color: hsl(var(--mint-green)); }
+  .text-bright-red { color: hsl(var(--bright-red)); }
   
   .bg-warm-cream { background-color: hsl(var(--warm-cream)); }
   .bg-soft-beige { background-color: hsl(var(--soft-beige)); }
   .bg-mustard { background-color: hsl(var(--mustard)); }
   .bg-warm-orange { background-color: hsl(var(--warm-orange)); }
   .bg-dark-brown { background-color: hsl(var(--dark-brown)); }
+  .bg-charcoal { background-color: hsl(var(--charcoal)); }
+  .bg-mint-green { background-color: hsl(var(--mint-green)); }
+  .bg-bright-red { background-color: hsl(var(--bright-red)); }
+
+  /* Text effects */
+  .text-gradient {
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Special effects */
+  .blur-behind {
+    backdrop-filter: blur(10px);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
 }
